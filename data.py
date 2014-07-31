@@ -17,7 +17,7 @@ class xml_file:
 		self.xml_name = xml_name;
 		self.address_count = address_list.count()
 
-	def get_file_info_list():
+	def download_files():
 		tree = ET.parse(xml_name)
 		root = tree.getroot()
 		file_info_list = [];
@@ -32,5 +32,6 @@ class xml_file:
 			filename = search_filename + '.txt'
 			url_file_info = file_info(foldername, filename)
 
-			file_list.append(url_file_info)
+			url_file_info.download_file()
+
 
