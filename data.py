@@ -1,5 +1,6 @@
 from ftplib import FTP
 import xml.etree.ElementTree as ET
+from parse import *
 
 class file_info:
 	def __init__(self, foldername, filename):
@@ -23,9 +24,13 @@ class xml_file:
 
 		for url in root:
 			raw_url = url[0].text
-			foldername = search('/data/{}/', raw_url)
-			filename = parse('http://www.sec.gov/Archives/edgar/data/' + foldername + '/{}-index.htm', raw_url)
-			filename = filename + '.txt'
+
+			search_foldername = search('/data/{}/', raw_url) # <Result ('910832',) {}>
+			foldername = search_foldername[0] # '910832'
+			search_filename = parse('http://www.sec.gov/Archives/edgar/data/' + foldername + '/{}-index.htm', raw_url)
+			filename = result[0]
+			filename = search_filename + '.txt'
 			url_file_info = file_info(foldername, filename)
+
 			file_list.append(url_file_info)
 
